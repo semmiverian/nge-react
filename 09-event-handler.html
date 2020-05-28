@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+
+    <script type="text/babel">
+      const name = 'semmi'
+      const age = 17
+      const color = 'red'
+
+      function Heading(props) {
+        console.log(props)
+        return (
+          <h2 style={{color: color, backgroundColor: 'blue'}}>
+            Hello React {props.name.toUpperCase()} umur saya adalah {props.age + 1}
+          </h2>
+        )
+      }
+
+      function onChange(event) {
+        console.log(event.target.value)
+      }
+
+      function Input() {
+        return (
+          <>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" onChange={(event) => console.log('input berubah', event.target.value)} />
+          </>
+        )
+      }
+
+      function onClick() {
+        // console.log('div terpencet')
+      }
+
+      function App() {
+        return (
+          <div className="container" onClick={onClick}>
+            <Heading name="Semmi" age={age} user={{name: 'Semmi', age: age}} />
+            <Heading name="John" age={age} />
+            <Heading name="Kosasih" age={age} />
+            <Input />
+          </div>
+        )
+      }
+
+      ReactDOM.render(<App />, document.getElementById('app'))
+    </script>
+  </body>
+</html>

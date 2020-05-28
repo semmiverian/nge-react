@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+    <script type="text/babel">
+      const name = 'semmi'
+      const age = 17
+      const element = (
+        <div className="container">
+          <h2>
+            Hello React {name.toUpperCase()} umur saya adalah {age + 1}
+          </h2>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" />
+        </div>
+      )
+      console.log(element)
+      ReactDOM.render(element, document.getElementById('app'))
+    </script>
+  </body>
+</html>

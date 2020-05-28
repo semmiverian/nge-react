@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+
+    <script type="text/babel">
+      const database = [
+        {
+          id: 1,
+          name: 'Semmi'
+        },
+        {
+          id: 2,
+          name: 'John'
+        },
+        {
+          id: 3,
+          name: 'Kosasih'
+        }
+      ]
+
+      function List(props) {
+        return <li>{props.title}</li>
+      }
+
+      function App() {
+        const [data, setData] = React.useState([])
+        const [loading, setLoading] = React.useState(true)
+        const [error, setError] = React.useState(null)
+
+        React.useEffect(() => {
+          fetch('https://jsonplaceholder.typicode.com/posts')
+            .then((res) => res.json())
+            .then((dataApi) => setData(dataApi))
+            .catch((err) => setError('Error ketika mengambil data dari 3rd party api'))
+            .finally(() => setLoading(false))
+        }, [])
+        return (
+          <div>
+            <h1>Fetch API in React</h1>
+            {loading === true ? (
+              <h2>sedang loading</h2>
+            ) : (
+              <ul>
+                {data.map((item) => (
+                  <List key={item.id} title={item.title} />
+                ))}
+              </ul>
+            )}
+
+            {error && <h2>{error}</h2>}
+          </div>
+        )
+      }
+
+      ReactDOM.render(<App />, document.getElementById('app'))
+    </script>
+  </body>
+</html>

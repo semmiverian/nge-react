@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+
+    <script type="text/babel">
+      const database = [
+        {
+          id: 1,
+          name: 'Semmi'
+        },
+        {
+          id: 2,
+          name: 'John'
+        },
+        {
+          id: 3,
+          name: 'Kosasih'
+        }
+      ]
+      function App() {
+        const [name, setName] = React.useState('semmi')
+        const [age, setAge] = React.useState(11)
+        const [data] = React.useState(database)
+        const [loading, setLoading] = React.useState(true)
+
+        React.useEffect(() => {
+          console.log('Fungsi ini dijalankan setiap kali react melakukan render component')
+
+          document.title = name
+
+          return function () {
+            console.log('cleanup function dijalankan')
+          }
+        }, [name])
+
+        React.useEffect(() => {
+          const id = ssetTimeout(() => {
+            setLoading(false)
+          }, 100)
+
+          return function () {
+            clearTimeout(id)
+          }
+        }, [])
+
+        function onChange(event) {
+          const value = event.target.value
+
+          setName(value)
+        }
+
+        return (
+          <div>
+            <h1>
+              Reactivity in React {name} {age}
+            </h1>
+            <input type="text" onChange={onChange} />
+            {loading ? (
+              <span>Loading</span>
+            ) : (
+              <ul>
+                {data.map((item) => (
+                  <li key={item.id}>{item.name}</li>
+                ))}
+              </ul>
+            )}
+
+            {age >= 17 && <span>Anda memiliki ktp</span>}
+
+            <br />
+
+            <button onClick={(e) => setAge(age + 1)}>Tambah Umur </button>
+          </div>
+        )
+      }
+
+      ReactDOM.render(<App />, document.getElementById('app'))
+    </script>
+  </body>
+</html>
